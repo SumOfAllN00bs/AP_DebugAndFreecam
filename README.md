@@ -9,10 +9,10 @@ Accounting+ Modified Files
 4. Then navigate to AccountingPlus_Data\Managed
 5. Click on Assembly-CSharp.dll
 6. In the assembly explorer, open up the tree like so:
-    Assembly-CSharp (0.0.0.0)
-    > Assembly-CSharp.dll
-      > NewtonVR
-        > NVRHead
+    > Assembly-CSharp (0.0.0.0)
+    > ->Assembly-CSharp.dll
+      > ->NewtonVR
+        > ->NVRHead
 7. Click on NVRHead and then in the code view to the right, right click and click on Edit Class (C#)...
 8. Ctrl+a, delete all the code
 9. Copy in the code from https://github.com/SumOfAllN00bs/AP_DebugAndFreecam/blob/master/WIP_NVRHead.cs
