@@ -20,7 +20,11 @@ Accounting+ Modified Files
 11. Click on File -> Save Module... and then OK
 
 ## Usage
+
 If everything worked then when you start Accounting+ F1 will bring up a Debug Menu where you can read Debug.Log() messages.
+
 F4 will gradually increase speed until you reach the max of 10 and then it will wrap it around to 0.
+
 F3 will toggle whether or not touchpad will be used for vertical movement.
+
 And by default the code will run so that the thumbstick will control your location forward and backward and will rotate you left and right.
