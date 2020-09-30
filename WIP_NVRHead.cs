@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 namespace NewtonVR
 {
 	public class NVRHead : MonoBehaviour
@@ -15,66 +15,184 @@ namespace NewtonVR
 			this.collapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
 			this.debugLogs = new List<NVRHead.LogLine>();
 		}
-
 		public virtual void Initialize()
 		{
 		}
-
 		private void Update()
 		{
 			NVRInputDevice nvrinputDevice = (NVRInputDevice)UnityEngine.Object.FindObjectOfType(typeof(NVRInputDevice));
-			PlayerController pc = (PlayerController)UnityEngine.Object.FindObjectOfType(typeof(PlayerController));
-			Vector2 joystick = nvrinputDevice.GetAxis2D(NVRButtons.Axis2);
-			if (Input.GetKeyDown(KeyCode.F1))
+			PlayerController playerController = (PlayerController)UnityEngine.Object.FindObjectOfType(typeof(PlayerController));
+			Vector2 axis2D = nvrinputDevice.GetAxis2D(NVRButtons.Axis2);
+			if (Input.GetKeyDown(KeyCode.H))
+			{
+				foreach (GameObject gameObject in UnityEngine.Object.FindObjectsOfType<GameObject>())
+				{
+					if (gameObject.layer == 8)
+					{
+						gameObject.layer = 0;
+					}
+				}
+			}
+			if (Input.GetKeyDown(KeyCode.BackQuote))
 			{
 				this.debugVisible = !this.debugVisible;
 			}
-			if (Input.GetKeyDown(KeyCode.F3))
+			if (Input.GetKeyDown(KeyCode.F2))
 			{
-				Debug.Log("Toggle vertical control: " + this.verticalControl.ToString());
-				this.verticalControl = !this.verticalControl;
+				this.freecamEnabled = !this.freecamEnabled;
 			}
-			if (Input.GetKeyDown(KeyCode.F4))
+			if (this.freecamEnabled)
 			{
-				this.speed = ((this.speed > 10f) ? 0f : (this.speed + 1f));
-				Debug.Log("freecam speed: " + this.speed);
+				if (Input.GetKeyDown(KeyCode.F3))
+				{
+					Debug.Log("Toggle vertical control: " + this.verticalControl.ToString());
+					this.verticalControl = !this.verticalControl;
+				}
+				if (Input.GetKeyDown(KeyCode.F4))
+				{
+					this.speed = ((this.speed > 10f) ? 0f : (this.speed + 1f));
+					Debug.Log("freecam speed: " + this.speed);
+				}
+				if ((double)nvrinputDevice.GetAxis2D(NVRButtons.Touchpad).y > 0.5 && this.verticalControl)
+				{
+					playerController.CachedTransform.Translate(0f, this.speed * Time.deltaTime, 0f, Space.World);
+				}
+				if ((double)nvrinputDevice.GetAxis2D(NVRButtons.Touchpad).y < -0.5 && this.verticalControl)
+				{
+					playerController.CachedTransform.Translate(0f, -(this.speed * Time.deltaTime), 0f, Space.World);
+				}
+				if ((double)axis2D.x < -0.3)
+				{
+					playerController.CachedTransform.Rotate(Vector3.up, -(this.speed * 30f * Time.deltaTime * Math.Abs(axis2D.x)));
+				}
+				if ((double)axis2D.x > 0.6)
+				{
+					playerController.CachedTransform.Rotate(Vector3.up, this.speed * 30f * Time.deltaTime * Math.Abs(axis2D.x));
+				}
+				if ((double)axis2D.y < -0.6)
+				{
+					playerController.CachedTransform.Translate(0f, 0f, -(this.speed * Time.deltaTime * Math.Abs(axis2D.y)), Space.Self);
+				}
+				if ((double)axis2D.y > 0.3)
+				{
+					playerController.CachedTransform.Translate(0f, 0f, this.speed * Time.deltaTime * axis2D.y, Space.Self);
+				}
 			}
-			if ((double)nvrinputDevice.GetAxis2D(NVRButtons.Touchpad).y > 0.5 && this.verticalControl)
+			if (Input.GetKeyDown(KeyCode.F5))
 			{
-				pc.CachedTransform.Translate(0f, this.speed * Time.deltaTime, 0f, Space.World);
+				int num = 0;
+				foreach (MeshRenderer meshRenderer in UnityEngine.Object.FindObjectsOfType<MeshRenderer>())
+				{
+					if (meshRenderer.material != null && meshRenderer.material.name != null && meshRenderer.material.name.Contains("trigger"))
+					{
+						num++;
+					}
+				}
+				Debug.Log("Trigger meshes found: " + num);
 			}
-			if ((double)nvrinputDevice.GetAxis2D(NVRButtons.Touchpad).y < -0.5 && this.verticalControl)
+			if (Input.GetKeyDown(KeyCode.F6))
 			{
-				pc.CachedTransform.Translate(0f, -(this.speed * Time.deltaTime), 0f, Space.World);
+				Material material = new Material(UnityEngine.Object.FindObjectOfType<MeshRenderer>().material);
+				foreach (MeshRenderer meshRenderer2 in UnityEngine.Object.FindObjectsOfType<MeshRenderer>())
+				{
+					Material material2 = meshRenderer2.material;
+					meshRenderer2.material = material;
+					material = material2;
+				}
 			}
-			if ((double)joystick.x < -0.3)
+			int num2 = 0;
+			if (Input.GetKeyDown(KeyCode.LeftShift))
 			{
-				pc.CachedTransform.Rotate(Vector3.up, -(this.speed * 30f * Time.deltaTime * Math.Abs(joystick.x)));
+				num2 = 8;
 			}
-			if ((double)joystick.x > 0.6)
+			if (Input.GetKeyDown(KeyCode.Keypad1))
 			{
-				pc.CachedTransform.Rotate(Vector3.up, this.speed * 30f * Time.deltaTime * Math.Abs(joystick.x));
+				StationController stationController = UnityEngine.Object.FindObjectOfType<StationController>();
+				if (stationController != null)
+				{
+					stationController.ChangeAlternativeLevel("AccPlus_Stomach_MASTER");
+					stationController.BroadcastLevelComplete();
+				}
+				return;
 			}
-			if ((double)joystick.y < -0.6)
+			if (Input.GetKeyDown(KeyCode.Keypad2))
 			{
-				pc.CachedTransform.Translate(0f, 0f, -(this.speed * Time.deltaTime * Math.Abs(joystick.y)), Space.Self);
+				StationController stationController2 = UnityEngine.Object.FindObjectOfType<StationController>();
+				if (stationController2 != null)
+				{
+					stationController2.ChangeAlternativeLevel("AccPlus_Finale_MASTER");
+					stationController2.BroadcastLevelComplete();
+				}
+				return;
 			}
-			if ((double)joystick.y > 0.3)
+			if (Input.GetKeyDown(KeyCode.Keypad3))
 			{
-				pc.CachedTransform.Translate(0f, 0f, this.speed * Time.deltaTime * joystick.y, Space.Self);
+				StationController stationController3 = UnityEngine.Object.FindObjectOfType<StationController>();
+				if (stationController3 != null)
+				{
+					stationController3.ChangeAlternativeLevel("AccPlus_Arg_MASTER");
+					stationController3.BroadcastLevelComplete();
+				}
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad4))
+			{
+				StationController stationController4 = UnityEngine.Object.FindObjectOfType<StationController>();
+				if (stationController4 != null)
+				{
+					stationController4.ChangeAlternativeLevel("AccPlus_Office_MASTER");
+					stationController4.BroadcastLevelComplete();
+				}
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				SceneManager.LoadScene(num2, LoadSceneMode.Additive);
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha2))
+			{
+				SceneManager.LoadScene(1 + num2, LoadSceneMode.Additive);
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha3))
+			{
+				SceneManager.LoadScene(2 + num2, LoadSceneMode.Additive);
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha4))
+			{
+				SceneManager.LoadScene(3 + num2, LoadSceneMode.Additive);
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha5))
+			{
+				SceneManager.LoadScene(4 + num2, LoadSceneMode.Additive);
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha6))
+			{
+				SceneManager.LoadScene(5 + num2, LoadSceneMode.Additive);
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha7))
+			{
+				SceneManager.LoadScene(6 + num2, LoadSceneMode.Additive);
+				return;
+			}
+			if (Input.GetKeyDown(KeyCode.Alpha8))
+			{
+				SceneManager.LoadScene(7 + num2, LoadSceneMode.Additive);
 			}
 		}
-
 		private void OnEnable()
 		{
 			Application.logMessageReceived += this.HandleLog;
 		}
-
 		private void OnDisable()
 		{
 			Application.logMessageReceived -= this.HandleLog;
 		}
-
 		private void OnGUI()
 		{
 			if (this.debugVisible)
@@ -82,7 +200,6 @@ namespace NewtonVR
 				this.windowRect = GUILayout.Window(900, this.windowRect, new GUI.WindowFunction(this.debugWindow), "Debug", new GUILayoutOption[0]);
 			}
 		}
-
 		private void debugWindow(int debugID)
 		{
 			this.scrollP = GUILayout.BeginScrollView(this.scrollP, new GUILayoutOption[0]);
@@ -114,7 +231,6 @@ namespace NewtonVR
 			GUILayout.EndHorizontal();
 			GUI.DragWindow(this.titleBarRect);
 		}
-
 		private void HandleLog(string message, string stackTrace, LogType type)
 		{
 			this.debugLogs.Add(new NVRHead.LogLine
@@ -125,7 +241,6 @@ namespace NewtonVR
 			});
 			this.newDebugMessage = true;
 		}
-
 		private GameObject CreateText(Transform canvas_transform, float x, float y, string text_to_print, int font_size, Color text_color)
 		{
 			GameObject gameObject = new GameObject("Text2");
@@ -137,34 +252,15 @@ namespace NewtonVR
 			text.color = text_color;
 			return gameObject;
 		}
-
-		private void Start()
-		{
-		}
-
-		public static void DumpToConsole(object obj)
-		{
-			Debug.Log(JsonUtility.ToJson(obj, true));
-		}
-
 		private bool debugVisible;
-
 		private Vector2 scrollP;
-
 		private bool collapse;
-
 		private const int margin = 10;
-
 		private Rect windowRect;
-
 		private Rect titleBarRect;
-
 		private GUIContent clearLabel;
-
 		private GUIContent collapseLabel;
-
 		private List<NVRHead.LogLine> debugLogs;
-
 		private static Dictionary<LogType, Color> logTypeColors = new Dictionary<LogType, Color>
 		{
 			{
@@ -188,10 +284,10 @@ namespace NewtonVR
 				Color.yellow
 			}
 		};
-
 		private float speed = 5f;
 		private bool newDebugMessage;
 		private bool verticalControl;
+		private bool freecamEnabled;
 		private struct LogLine
 		{
 			public string message;
