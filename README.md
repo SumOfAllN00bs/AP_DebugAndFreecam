@@ -15,7 +15,7 @@ Accounting+ Modified Files
        - NVRHead
 7. Click on NVRHead and then in the code view to the right, right click and click on Edit Class (C#)...
 8. Ctrl+a, delete all the code
-9. Copy in the code from https://github.com/SumOfAllN00bs/AP_DebugAndFreecam/blob/master/WIP_NVRHead.cs
+9. Copy in the code from https://github.com/SumOfAllN00bs/AP_DebugAndFreecam/blob/master/NVRHead.cs
 10. Click on Compile (if there are errors I can't help here)
 11. Click on File -> Save Module... and then OK
 
