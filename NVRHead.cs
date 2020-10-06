@@ -101,7 +101,7 @@ namespace NewtonVR
 				}
 			}
 			int num2 = 0;
-			if (Input.GetKeyDown(KeyCode.LeftShift))
+			if (Input.GetKey(KeyCode.LeftShift))
 			{
 				num2 = 8;
 			}
