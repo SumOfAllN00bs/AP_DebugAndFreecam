@@ -53,19 +53,19 @@ Tilde/Backtick = Debug Console
 
 1 + shift = Add level 8 	(Car Chase)
 
-1 + shift = Add level 9 	(Fire)
+2 + shift = Add level 9 	(Fire)
 
-1 + shift = Add level 10	(Finale)
+3 + shift = Add level 10	(Finale)
 
-1 + shift = Add level 11	(Ritual)
+4 + shift = Add level 11	(Ritual)
 
-1 + shift = Add level 12	(Water Park)
+5 + shift = Add level 12	(Water Park)
 
-1 + shift = Add level 13	(Biggest Fan)
+6 + shift = Add level 13	(Biggest Fan)
 
-1 + shift = Add level 14	(Space)
+7 + shift = Add level 14	(Space)
 
-1 + shift = Add level 15	(Nightmare)
+8 + shift = Add level 15	(Nightmare)
 
 H = Unhide all gameobjects
 
