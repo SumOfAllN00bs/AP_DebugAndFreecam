@@ -22,37 +22,66 @@ Accounting+ Modified Files
 ## Usage
 
 If everything worked then when you start Accounting+ will have the following bindings:
+
 F2 = Toggle freecam
+
 F3 = Toggle vertical movement
+
 F4 = Step increase freecam speed
+
 F5 = Print to debug trigger meshes found
+
 F6 = Shift Materials around (bug exists)
+
 Tilde/Backtick = Debug Console
+
 1 = Add level 0 			(empty)
+
 2 = Add level 1 			(clovis)
+
 3 = Add level 2 			(office)
+
 4 = Add level 3 			(tree)
+
 5 = Add level 4 			(alley)
+
 6 = Add level 5 			(dungeon)
+
 7 = Add level 6 			(stomach)
+
 8 = Add level 7 			(court)
+
 1 + shift = Add level 8 	(Car Chase)
+
 1 + shift = Add level 9 	(Fire)
+
 1 + shift = Add level 10	(Finale)
+
 1 + shift = Add level 11	(Ritual)
+
 1 + shift = Add level 12	(Water Park)
+
 1 + shift = Add level 13	(Biggest Fan)
+
 1 + shift = Add level 14	(Space)
+
 1 + shift = Add level 15	(Nightmare)
+
 H = Unhide all gameobjects
+
 Numpad 1 = (bugged) stomach
+
 Numpad 2 = (bugged) finale
+
 Numpad 3 = (bugged) arg
+
 Numpad 4 = (bugged) office
+
 
 And by default the code will run so that the thumbstick will control your location forward and backward and will rotate you left and right.
 
 Optional Runtime inspector:
+
 Instructions:
 1. Go to: https://github.com/BepInEx/BepInEx/releases
 2. Download the x64 version of the latest release (v5.3 now)
