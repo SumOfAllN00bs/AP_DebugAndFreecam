@@ -92,12 +92,24 @@ namespace NewtonVR
 			}
 			if (Input.GetKeyDown(KeyCode.F6))
 			{
-				Material material = new Material(UnityEngine.Object.FindObjectOfType<MeshRenderer>().material);
-				foreach (MeshRenderer meshRenderer2 in UnityEngine.Object.FindObjectsOfType<MeshRenderer>())
+				GameObject[] array = Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[];
+				for (int i = 0; i < array.Length; i++)
 				{
-					Material material2 = meshRenderer2.material;
-					meshRenderer2.material = material;
-					material = material2;
+					array[i].SetActive(true);
+				}
+			}
+			if (Input.GetKeyDown(KeyCode.F8))
+			{
+				GameObject rh = GameObject.Find("RightHand");
+				if (rh != null && !this.handLight)
+				{
+					rh.AddComponent<Light>();
+					this.handLight = true;
+				}
+				else if (rh != null && this.handLight)
+				{
+					UnityEngine.Object.Destroy(rh.GetComponent<Light>());
+					this.handLight = false;
 				}
 			}
 			int num2 = 0;
@@ -287,6 +299,7 @@ namespace NewtonVR
 		private float speed = 5f;
 		private bool newDebugMessage;
 		private bool verticalControl;
+		private bool handLight;
 		private bool freecamEnabled;
 		private struct LogLine
 		{

@@ -31,7 +31,7 @@ F4 = Step increase freecam speed
 
 F5 = Print to debug trigger meshes found
 
-F6 = Shift Materials around (bug exists)
+F6 = Enable all disabled gameobjects
 
 Tilde/Backtick = Debug Console
 
