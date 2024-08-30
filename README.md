@@ -89,7 +89,7 @@ Instructions:
      You should have a folder called "BepInEx" in the "AccountingPlus" folder
      And you should see the file "winhttp.dll"
 4. Run the game once and you should see the folder "config" and the file "LogOutput.log" appear in the "BepInEx" folder
-5. Go to: https://github.com/ManlyMarco/RuntimeUnityEditor/releases
+5. Go to: https://github.com/sinai-dev/UnityExplorer/releases (or this link for some similar project https://github.com/ManlyMarco/RuntimeUnityEditor/releases )
 6. Download the latest version that has BepInEx5 in the name
 7. Extract the contents and move the BepInEx folder to the "AccountingPlus" folder
 8. Click Yes to any overwrite questions (I didn't get any)
