@@ -3,7 +3,7 @@ Accounting+ Modified Files
 
 ## Instructions
 
-1. Install dnSpy from [https://github.com/0xd4d/dnSpy/releases](https://github.com/dnSpyEx/dnSpy)
+1. Install dnSpy from [https://github.com/dnSpyEx/dnSpy/releases](https://github.com/dnSpyEx/dnSpy/releases)
 2. Open dnSpy and then click on File -> Open
 3. Navigate to your copy of Accounting+ <Steam Install>\steamapps\common\AccountingPlus
 4. Then navigate to AccountingPlus_Data\Managed
